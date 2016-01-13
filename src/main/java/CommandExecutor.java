@@ -1,11 +1,18 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+
 
 /**
  * Executes commands in terminal
  */
 public class CommandExecutor {
+    Logger logger = LoggerFactory.getLogger(CommandExecutor.class);
+
     /**
      * Start a new process with the provided command
      *
@@ -26,9 +33,9 @@ public class CommandExecutor {
             process.exitValue();  // throw some error if exit value is incorrect
             process.destroy();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
 
         return commandOutput.toString();

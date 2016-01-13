@@ -6,15 +6,26 @@ import dto.DeadNode;
 import dto.DeadNodeDetails;
 import dto.LiveNode;
 import dto.LiveNodeDetails;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Query REST api of potential NameNode to obtain data about DataNodes
+ */
 public class HdfsNodeExtractor {
+    private Logger logger = LoggerFactory.getLogger(HdfsNodeExtractor.class);
     private JsonNode rootNode = null;
 
+    /**
+     * Make REST call and correct resulting json
+     *
+     * @param url used to make the REST call
+     */
     public HdfsNodeExtractor(String url) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<?> response = restTemplate.getForEntity(url, String.class);
@@ -22,11 +33,17 @@ public class HdfsNodeExtractor {
         try {
             rootNode = mapper.readTree(response.getBody().toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         correctJsonString();
     }
 
+    /**
+     * Json contains NodeName as a string, so we correct it and transform the string in
+     * a valid JsonNode and integrate it in the json tree.
+     *
+     * @return root node of the Json
+     */
     private JsonNode correctJsonString() {
         List<String> nodeTypes = Arrays.asList("LiveNodes", "DeadNodes", "DecomNodes");
         ObjectMapper mapper = new ObjectMapper();
@@ -41,13 +58,18 @@ public class HdfsNodeExtractor {
                 lNodes = mapper.readTree(lnString);
                 ((ObjectNode) rootNode.findPath("beans").get(0)).replace(nodeType, lNodes);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
         }
 
         return rootNode;
     }
 
+    /**
+     * Extract list of DataNodes.
+     *
+     * @return list of DataNodes
+     */
     public List<LiveNode> getLiveDataNodes() {
         List<LiveNode> liveNodes = new ArrayList();
         ObjectMapper mapper = new ObjectMapper();
@@ -61,7 +83,7 @@ public class HdfsNodeExtractor {
             try {
                 liveNodeDetails = mapper.treeToValue(jsonParam.getValue(), LiveNodeDetails.class);
             } catch (JsonProcessingException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
             liveNodes.add(new LiveNode(nodeName, liveNodeDetails));
         }
@@ -69,6 +91,11 @@ public class HdfsNodeExtractor {
         return liveNodes;
     }
 
+    /**
+     * Extract list of DeadNodes.
+     *
+     * @return list of DeadNodes
+     */
     public List<DeadNode> getDeadNodes() {
         List<DeadNode> deadNodes = new ArrayList();
         ObjectMapper mapper = new ObjectMapper();
@@ -82,7 +109,7 @@ public class HdfsNodeExtractor {
             try {
                 deadNodeDetails = mapper.treeToValue(jsonParam.getValue(), DeadNodeDetails.class);
             } catch (JsonProcessingException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
             deadNodes.add(new DeadNode(nodeName, deadNodeDetails));
         }
@@ -90,12 +117,15 @@ public class HdfsNodeExtractor {
         return deadNodes;
     }
 
+    /**
+     * Print the tree with indented fields.
+     */
     public void prettyPrint() {
         ObjectMapper mapper = new ObjectMapper();
         try {
             System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
     }
 }

@@ -1,5 +1,8 @@
 package dto;
 
+/**
+ * LiveNode with name and LiveNodeDetails.
+ */
 public class LiveNode {
     private String nodeName;
     private LiveNodeDetails liveNodeDetails;

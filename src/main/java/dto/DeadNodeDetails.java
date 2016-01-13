@@ -1,5 +1,8 @@
 package dto;
 
+/**
+ * Details for DeadNode.
+ */
 public class DeadNodeDetails {
     private Long lastContact;
     private Boolean decommissioned;

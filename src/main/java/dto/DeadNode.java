@@ -1,5 +1,8 @@
 package dto;
 
+/**
+ * DeadNode with name and DeadNodeDetails.
+ */
 public class DeadNode {
     private String nodeName;
     private DeadNodeDetails deadNodeDetails;

@@ -1,5 +1,8 @@
 package dto;
 
+/**
+ * Details for LiveNode.
+ */
 public class LiveNodeDetails {
     private String infoAddr;
     private String infoSecureAddr;

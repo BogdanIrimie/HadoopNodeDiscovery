@@ -1,13 +1,26 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Extract information about potential NameNodes from Json obtained from Nmap
+ */
 public class PotentialNameNodeDiscoverer {
+    private Logger logger = LoggerFactory.getLogger(PotentialNameNodeDiscoverer.class);
 
+    /**
+     * Parse the Json resulted from a Nmap scann to find potential
+     * (nodes that have port 50070 open) Namenodes.
+     *
+     * @param jsonString contains the Nmap scann results
+     * @return list with potential NameNodes
+     */
     public List<String> getPotentialNameNodes(String jsonString) {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = null;
@@ -16,7 +29,7 @@ public class PotentialNameNodeDiscoverer {
         try {
             rootNode = mapper.readTree(jsonString);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         JsonNode hostsNode =  rootNode.findPath("host");
 
@@ -27,7 +40,6 @@ public class PotentialNameNodeDiscoverer {
             if (portId.equals("50070") && state.replace("\"", "").equals("open")) {
                 potentialNameNodes.add(addr);
             }
-            //System.out.println("addr: " + addr + "\nportid " + portId + "\nstate: " + state);
         }
         if (hostsNode.getNodeType().equals(JsonNodeType.ARRAY)) {
             for (JsonNode node : hostsNode) {
@@ -37,11 +49,9 @@ public class PotentialNameNodeDiscoverer {
                 if (portId.equals("50070") && state.trim().equals("open")) {
                     potentialNameNodes.add(addr);
                 }
-                //System.out.println("addr: " + addr + "\nportid " + portId + "\nstate: " + state);
             }
         }
 
         return potentialNameNodes;
     }
-
 }
