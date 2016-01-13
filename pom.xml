@@ -10,6 +10,7 @@
 
     <properties>
         <jacksonVersion>2.5.0</jacksonVersion>
+        <jsonOrgVersion>20140107</jsonOrgVersion>
     </properties>
 
     <dependencies>
@@ -38,6 +39,14 @@
             <version>${jacksonVersion}</version>
         </dependency>
         <!-- End of Jackson dependencies -->
+
+        <!-- Conert XML to JSON -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${jsonOrgVersion}</version>
+        </dependency>
+
     </dependencies>
 
 </project>
