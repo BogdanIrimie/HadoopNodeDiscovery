@@ -4,7 +4,11 @@ import java.util.List;
 public class Client {
     public static void main(String[] args) {
 
-        String ips = "109.231.122.0-100";//"109.231.122.54";
+        StringBuilder ipList = new StringBuilder();
+        for (String arg : args) {
+            ipList.append(arg + " ");
+        }
+        String ips = ipList.toString().trim();
         CommandExecutor commandExecutor = new CommandExecutor();
         String nmapOutput = commandExecutor.execute("nmap --open " + ips + " -p 50070 -oX -");
 
@@ -20,7 +24,5 @@ public class Client {
             //hdfsNodeExtractor.prettyPrint();
             System.out.print(liveDataNodes);
         }
-
-        //"nmap --open 109.231.122.240 109.231.122.54 -p 50070"
     }
 }
