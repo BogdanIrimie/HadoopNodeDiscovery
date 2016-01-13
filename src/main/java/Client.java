@@ -1,3 +1,4 @@
+import converters.JsonConverter;
 import dto.LiveNode;
 import java.util.List;
 
@@ -22,7 +23,8 @@ public class Client {
             HdfsNodeExtractor hdfsNodeExtractor = new HdfsNodeExtractor(url);
             List<LiveNode> liveDataNodes = hdfsNodeExtractor.getLiveDataNodes();
             //hdfsNodeExtractor.prettyPrint();
-            System.out.print(liveDataNodes);
+            String liveDataNodesJsonString = JsonConverter.objectToJsonString(liveDataNodes);
+            System.out.print(liveDataNodesJsonString);
         }
     }
 }
