@@ -24,4 +24,9 @@ public class LiveNode {
     public void setLiveNodeDetails(LiveNodeDetails liveNodeDetails) {
         this.liveNodeDetails = liveNodeDetails;
     }
+
+    @Override
+    public String toString() {
+        return nodeName + " " + liveNodeDetails.getInfoAddr() + "\n";
+    }
 }
