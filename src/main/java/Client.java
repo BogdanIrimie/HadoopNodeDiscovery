@@ -1,5 +1,8 @@
 import converters.JsonConverter;
 import dto.LiveNode;
+import dto.LiveNodeMinimal;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Client {
@@ -22,9 +25,14 @@ public class Client {
             String url = "http://" + ip + ":50070/jmx?qry=Hadoop:service=NameNode,name=NameNodeInfo";
             HdfsNodeExtractor hdfsNodeExtractor = new HdfsNodeExtractor(url);
             List<LiveNode> liveDataNodes = hdfsNodeExtractor.getLiveDataNodes();
-            //hdfsNodeExtractor.prettyPrint();
-            String liveDataNodesJsonString = JsonConverter.objectToJsonString(liveDataNodes);
-            System.out.print(liveDataNodesJsonString);
+
+            List<LiveNodeMinimal> liveNodesMinimal = new ArrayList<LiveNodeMinimal>();
+            for (LiveNode ln : liveDataNodes) {
+                String nodeName = ln.getNodeName();
+                String nodeAddress = ln.getLiveNodeDetails().getInfoAddr();
+                liveNodesMinimal.add(new LiveNodeMinimal(nodeName, nodeAddress));
+            }
+            JsonConverter.prettyPrint(liveNodesMinimal);
         }
     }
 }

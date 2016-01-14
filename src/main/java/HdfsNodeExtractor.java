@@ -22,7 +22,7 @@ public class HdfsNodeExtractor {
     private JsonNode rootNode = null;
 
     /**
-     * Make REST call and correct resulting json
+     * Make REST call and correct resulting json.
      *
      * @param url used to make the REST call
      */
@@ -115,17 +115,5 @@ public class HdfsNodeExtractor {
         }
 
         return deadNodes;
-    }
-
-    /**
-     * Print the tree with indented fields.
-     */
-    public void prettyPrint() {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode));
-        } catch (JsonProcessingException e) {
-            logger.error(e.getMessage(), e);
-        }
     }
 }

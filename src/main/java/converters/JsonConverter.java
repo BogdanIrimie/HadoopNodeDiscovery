@@ -49,4 +49,18 @@ public class JsonConverter {
         return object;
     }
 
+    /**
+     * Print the tree with indented fields.
+     *
+     * @param json that will be indented
+     */
+    public static void prettyPrint(Object json) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json));
+        } catch (JsonProcessingException e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
 }
