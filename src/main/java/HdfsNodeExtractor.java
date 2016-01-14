@@ -2,10 +2,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import dto.DeadNode;
-import dto.DeadNodeDetails;
-import dto.LiveNode;
-import dto.LiveNodeDetails;
+import dto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -89,6 +86,24 @@ public class HdfsNodeExtractor {
         }
 
         return liveNodes;
+    }
+
+    /**
+     * Extract minimal information about DataNodes;
+     *
+     * @return list with DataNodesMinimal objects
+     */
+    public List<LiveNodeMinimal> getLiveDatNodesMinimal() {
+        List<LiveNode> liveDataNodes =  getLiveDataNodes();
+
+        List<LiveNodeMinimal> liveNodesMinimal = new ArrayList<LiveNodeMinimal>();
+        for (LiveNode ln : liveDataNodes) {
+            String nodeName = ln.getNodeName();
+            String nodeAddress = ln.getLiveNodeDetails().getInfoAddr();
+            liveNodesMinimal.add(new LiveNodeMinimal(nodeName, nodeAddress));
+        }
+
+        return liveNodesMinimal;
     }
 
     /**
