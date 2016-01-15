@@ -14,6 +14,7 @@
         <slf4jVersion>1.7.10</slf4jVersion>
         <logBackVersion>1.1.2</logBackVersion>
         <junitVersion>4.12</junitVersion>
+        <mockServer>3.10.1</mockServer>
     </properties>
 
     <dependencies>
@@ -79,11 +80,11 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- mockserver -->
+        <!-- Mockserver -->
         <dependency>
             <groupId>org.mock-server</groupId>
             <artifactId>mockserver-netty</artifactId>
-            <version>3.10.1</version>
+            <version>${mockServer}</version>
         </dependency>
     </dependencies>
 
