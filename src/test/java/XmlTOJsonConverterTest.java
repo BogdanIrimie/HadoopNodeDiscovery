@@ -23,7 +23,7 @@ public class XmlTOJsonConverterTest {
                 "{\"ip\":\"192.168.56.121\",\"name\":\"hdfs_dataNode_2\"}]}}";
 
         XmlToJsonConverter xmlConverter = new XmlToJsonConverter();
-        String convertedJson = xmlConverter.process(xml);
+        String convertedJson = xmlConverter.convert(xml);
 
         assertTrue(convertedJson.equals(json));
     }
