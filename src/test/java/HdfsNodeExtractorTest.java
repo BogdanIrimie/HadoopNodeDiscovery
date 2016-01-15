@@ -1,3 +1,5 @@
+import dto.DeadNode;
+import dto.LiveNode;
 import dto.LiveNodeMinimal;
 import org.junit.Rule;
 import org.junit.Test;
@@ -87,9 +89,14 @@ public class HdfsNodeExtractorTest {
 
         String url = "http://localhost:1080/jmx?qry=Hadoop:service=NameNode,name=NameNodeInfo";
         HdfsNodeExtractor nodeExtractor = new HdfsNodeExtractor(url);
-        List<LiveNodeMinimal> liveNodeMinimalList = nodeExtractor.getLiveDatNodesMinimal();
 
+        List<LiveNode> liveNodeList = nodeExtractor.getLiveDataNodes();
+        List<LiveNodeMinimal> liveNodeMinimalList = nodeExtractor.getLiveDatNodesMinimal();
+        List<DeadNode> deadNodeList = nodeExtractor.getDeadNodes();
+
+        assertTrue(liveNodeList.size() == 13);
         assertTrue(liveNodeMinimalList.size() == 13);
+        assertTrue(deadNodeList.size() == 0);
     }
 
 }

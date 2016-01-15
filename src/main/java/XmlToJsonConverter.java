@@ -16,7 +16,7 @@ public class XmlToJsonConverter {
      * @param xmlString contains xml data
      * @return json representation of XML
      */
-    public String process(String xmlString) {
+    public String convert(String xmlString) {
         String jsonString = null;
         try {
             JSONObject jsonObj = XML.toJSONObject(xmlString);

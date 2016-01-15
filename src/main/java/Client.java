@@ -47,7 +47,7 @@ public class Client {
     private static List<String> extractPotentialNameNodes(String nmapOutput) {
         XmlToJsonConverter converter = new XmlToJsonConverter();
         PotentialNameNodeDiscoverer pnd = new PotentialNameNodeDiscoverer();
-        String jsonString = converter.process(nmapOutput);
+        String jsonString = converter.convert(nmapOutput);
         List<String> potentialNameNodes = pnd.getPotentialNameNodes(jsonString);
         return potentialNameNodes;
     }
