@@ -13,6 +13,7 @@
         <jsonOrgVersion>20140107</jsonOrgVersion>
         <slf4jVersion>1.7.10</slf4jVersion>
         <logBackVersion>1.1.2</logBackVersion>
+        <junitVersion>4.12</junitVersion>
     </properties>
 
     <dependencies>
@@ -69,6 +70,28 @@
             <version>${logBackVersion}</version>
         </dependency>
         <!-- End of LOGBack -->
+
+        <!-- JUnit-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junitVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- WireMock -->
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>1.57</version>
+        </dependency>
+
+        <!-- mockserver -->
+        <dependency>
+            <groupId>org.mock-server</groupId>
+            <artifactId>mockserver-netty</artifactId>
+            <version>3.10.1</version>
+        </dependency>
     </dependencies>
 
 </project>
