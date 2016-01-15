@@ -6,6 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 public class PotentialNameNodeDiscovererTest {
 
+    /**
+     * Extract potential NameNodes from the Nmap output.
+     */
     @Test
     public void getPotentialNameNodesTest() {
         String nmapJsonOutput = "{  \n" +
