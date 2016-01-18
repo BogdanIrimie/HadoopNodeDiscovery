@@ -21,4 +21,5 @@ ip's can be specified as a list of ip or ip ranges.
 
 #Examples
 java -jar HdfsDiscovery 192.168.56.102
-Java -jar HdfsDiscovery 192.168.56.0-255
+
+java -jar HdfsDiscovery 192.168.56.0-255
