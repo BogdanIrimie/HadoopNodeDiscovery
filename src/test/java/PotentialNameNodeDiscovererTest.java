@@ -1,3 +1,4 @@
+import nodediscovery.PotentialNameNodeDiscoverer;
 import org.junit.Test;
 
 import java.util.List;

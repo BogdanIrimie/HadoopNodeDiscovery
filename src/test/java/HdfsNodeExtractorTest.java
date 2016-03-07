@@ -1,6 +1,7 @@
 import dto.DeadNode;
 import dto.LiveNode;
 import dto.LiveNodeMinimal;
+import nodediscovery.HdfsNodeExtractor;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockserver.client.server.MockServerClient;
