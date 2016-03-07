@@ -15,7 +15,7 @@ Discover Hadoop NameNodes and DataNodes for a cluster you have no prior informat
 - install [Nmap 6.40 or newer](https://nmap.org/download.html)
 
 ##Running
-java -jar <path/jarName.jar> <ips or ip ranges>
+`java -jar <path/jarName.jar> <ips or ip ranges>`
 
 ip's can be specified as a list of ip or ip ranges. 
 
